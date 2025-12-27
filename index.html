@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Plan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">Echo Plan</div>
+        <div class="menu-item active" onclick="showPage('dashboard')">
+            <span>Dashboard</span>
+        </div>
+        <div class="menu-item" onclick="showPage('event')">
+            <span>Event</span>
+        </div>
+        <div class="menu-item" onclick="showPage('struktur')">
+            <span>Struktur Kepanitiaan</span>
+        </div>
+        <div class="menu-item" onclick="showPage('tugas')">
+            <span>Tugas</span>
+        </div>
+        <div class="menu-item" onclick="showPage('data')">
+            <span>Data Event</span>
+        </div>
+        <div class="menu-item" onclick="showPage('dokumen')">
+            <span>Dokumen</span>
+        </div>
+        <div class="menu-item" onclick="showPage('meeting')">
+            <span>Meeting</span>
+        </div>
+        <div class="menu-item" onclick="showPage('profil')">
+            <span>Profil</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p style="color: #666; margin-top: 5px;">Selamat datang kembali!</p>
+            </div>
+            <div class="user-info">
+                <span style="margin-right: 10px;">
+                    <span style="color: #666;">Role:</span> <strong>Ketua Pelaksana</strong>
+                </span>
+                <div class="user-avatar">KP</div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="page active">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Event</h3>
+                    <div class="number">8</div>
+                </div>
+                <div class="stat-card green">
+                    <h3>Tugas Selesai</h3>
+                    <div class="number">124</div>
+                </div>
+                <div class="stat-card orange">
+                    <h3>Butuh Revisi</h3>
+                    <div class="number">7</div>
+                </div>
+                <div class="stat-card blue">
+                    <h3>Meeting Minggu Ini</h3>
+                    <div class="number">5</div>
+                </div>
+            </div>
+
+            <!-- Event Progress -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Progress Event Aktif</h2>
+                </div>
+                <div style="display: grid; gap: 20px;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <strong>Music Festival 2024</strong>
+                            <span style="color: #667eea; font-weight: 600;">75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <small style="color: #666;">Deadline: 15 Desember 2024</small>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <strong>Tech Conference 2024</strong>
+                            <span style="color: #667eea; font-weight: 600;">45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                        <small style="color: #666;">Deadline: 20 Januari 2025</small>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <strong>Charity Run 2025</strong>
+                            <span style="color: #667eea; font-weight: 600;">30%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 30%"></div>
+                        </div>
+                        <small style="color: #666;">Deadline: 10 Februari 2025</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Tasks -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Tugas Terbaru <span class="notif-badge">7</span></h2>
+                    <button class="btn btn-primary">Lihat Semua</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tugas</th>
+                                <th>Event</th>
+                                <th>Divisi</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Proposal Sponsorship</td>
+                                <td>Music Festival 2024</td>
+                                <td>Sponsor & Tenant</td>
+                                <td><span class="badge badge-revision">Needs Revision</span></td>
+                                <td>28 Nov 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Konfirmasi Venue</td>
+                                <td>Tech Conference 2024</td>
+                                <td>Humas</td>
+                                <td><span class="badge badge-progress">In Progress</span></td>
+                                <td>30 Nov 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Design Banner Promosi</td>
+                                <td>Charity Run 2025</td>
+                                <td>Kreatif</td>
+                                <td><span class="badge badge-completed">Completed</span></td>
+                                <td>25 Nov 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Rundown Acara</td>
+                                <td>Music Festival 2024</td>
+                                <td>Produksi</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                                <td>02 Des 2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event -->
+        <div id="event" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Daftar Event</h2>
+                    <button class="btn btn-primary">+ Tambah Event Baru</button>
+                </div>
+
+                <div class="search-filter">
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari event...">
+                    </div>
+                    <div class="filter-select">
+                        <select>
+                            <option>Semua Status</option>
+                            <option>Upcoming</option>
+                            <option>Ongoing</option>
+                            <option>Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Event</th>
+                                <th>Tanggal</th>
+                                <th>Venue</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Music Festival 2024</strong></td>
+                                <td>15 Desember 2024</td>
+                                <td>GBK Stadium</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%"></div>
+                                    </div>
+                                    <small>75%</small>
+                                </td>
+                                <td><span class="badge badge-progress">Ongoing</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Conference 2024</strong></td>
+                                <td>20 Januari 2025</td>
+                                <td>ICE BSD</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 45%"></div>
+                                    </div>
+                                    <small>45%</small>
+                                </td>
+                                <td><span class="badge badge-progress">Ongoing</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Charity Run 2025</strong></td>
+                                <td>10 Februari 2025</td>
+                                <td>Monas</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 30%"></div>
+                                    </div>
+                                    <small>30%</small>
+                                </td>
+                                <td><span class="badge badge-pending">Upcoming</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Art Exhibition 2024</strong></td>
+                                <td>05 November 2024</td>
+                                <td>National Gallery</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%"></div>
+                                    </div>
+                                    <small>100%</small>
+                                </td>
+                                <td><span class="badge badge-completed">Completed</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Arsip</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Struktur Kepanitiaan -->
+        <div id="struktur" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Struktur Kepanitiaan - Music Festival 2024</h2>
+                    <button class="btn btn-primary">+ Tambah Anggota</button>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight: 600; margin-bottom: 5px; display: block;">Pilih Event:</label>
+                    <select style="padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; width: 300px;">
+                        <option>Music Festival 2024</option>
+                        <option>Tech Conference 2024</option>
+                        <option>Charity Run 2025</option>
+                    </select>
+                </div>
+
+                <div class="division-grid">
+                    <!-- Ketua & Wakil -->
+                    <div class="division-card" style="border-left-color: #f5576c;">
+                        <h3>Ketua Pelaksana & Wakil</h3>
+                        <div class="member-list">
+                            <div class="member-item">
+                                <div>
+                                    <strong>Ahmad Rizki</strong>
+                                    <br><small style="color: #666;">Ketua Pelaksana</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Siti Nurhaliza</strong>
+                                    <br><small style="color: #666;">Wakil Ketua</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bendahara -->
+                    <div class="division-card" style="border-left-color: #38ef7d;">
+                        <h3>Bendahara</h3>
+                        <div class="member-list">
+                            <div class="member-item">
+                                <div>
+                                    <strong>Budi Santoso</strong>
+                                    <br><small style="color: #666;">Ketua Divisi</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Dewi Lestari</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sekretaris -->
+                    <div class="division-card" style="border-left-color: #4facfe;">
+                        <h3>Sekretaris</h3>
+                        <div class="member-list">
+                            <div class="member-item">
+                                <div>
+                                    <strong>Citra Wijaya</strong>
+                                    <br><small style="color: #666;">Ketua Divisi</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Eko Prasetyo</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Fitri Handayani</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sponsor & Tenant -->
+                    <div class="division-card" style="border-left-color: #f093fb;">
+                        <h3>Sponsor & Tenant</h3>
+                        <div class="member-list">
+                            <div class="member-item">
+                                <div>
+                                    <strong>Hendra Kusuma</strong>
+                                    <br><small style="color: #666;">Ketua Divisi</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Indah Permata</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Joko Widodo</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Talent -->
+                    <div class="division-card" style="border-left-color: #667eea;">
+                        <h3>Talent</h3>
+                        <div class="member-list">
+                            <div class="member-item">
+                                <div>
+                                    <strong>Kartika Sari</strong>
+                                    <br><small style="color: #666;">Ketua Divisi</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Lukman Hakim</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kreatif dan Produksi -->
+                    <div class="division-card" style="border-left-color: #fa8231;">
+                        <h3>Kreatif dan Produksi</h3>
+                        <div class="member-list">
+                            <div class="member-item">
+                                <div>
+                                    <strong>Maya Andini</strong>
+                                    <br><small style="color: #666;">Ketua Divisi</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Nanda Pratama</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Oki Setiawan</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Putri Rahayu</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keamanan dan Medis -->
+                    <div class="division-card" style="border-left-color: #11998e;">
+                        <h3>Keamanan dan Medis</h3>
+                        <div class="member-list">
+                            <div class="member-item">
+                                <div>
+                                    <strong>Qoriatul Aini</strong>
+                                    <br><small style="color: #666;">Ketua Divisi</small>
+                                </div>
+                            </div>
+                            <div class="member-item">
+                                <div>
+                                    <strong>Rian Saputra</strong>
+                                    <br><small style="color: #666;">Anggota</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Tugas -->
+        <div id="tugas" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Manajemen Tugas</h2>
+                    <button class="btn btn-primary">+ Tambah Tugas Baru</button>
+                </div>
+                <div class="search-filter">
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari tugas...">
+                    </div>
+                    <div class="filter-select">
+                        <select>
+                            <option>Semua Status</option>
+                            <option>Pending</option>
+                            <option>In Progress</option>
+                            <option>Needs Revision</option>
+                            <option>Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tugas</th>
+                                <th>Event</th>
+                                <th>Divisi</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Proposal Sponsorship</td>
+                                <td>Music Festival 2024</td>
+                                <td>Sponsor & Tenant</td>
+                                <td><span class="badge badge-revision">Needs Revision</span></td>
+                                <td>28 Nov 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Konfirmasi Venue</td>
+                                <td>Tech Conference 2024</td>
+                                <td>Humas</td>
+                                <td><span class="badge badge-progress">In Progress</span></td>
+                                <td>30 Nov 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Design Banner Promosi</td>
+                                <td>Charity Run 2025</td>
+                                <td>Kreatif</td>
+                                <td><span class="badge badge-completed">Completed</span></td>
+                                <td>25 Nov 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rundown Acara</td>
+                                <td>Music Festival 2024</td>
+                                <td>Produksi</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                                <td>02 Des 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn btn-primary">Detail</button>
+                                        <button class="action-btn btn-secondary">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Data -->
+        <div id="data" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Data Event</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Event</th>
+                                <th>Tanggal</th>
+                                <th>Venue</th>
+                                <th>Jumlah Peserta</th>
+                                <th>Pendapatan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Music Festival 2024</strong></td>
+                                <td>15 Desember 2024</td>
+                                <td>GBK Stadium</td>
+                                <td>5,000</td>
+                                <td>Rp 500,000,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Conference 2024</strong></td>
+                                <td>20 Januari 2025</td>
+                                <td>ICE BSD</td>
+                                <td>2,000</td>
+                                <td>Rp 300,000,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Charity Run 2025</strong></td>
+                                <td>10 Februari 2025</td>
+                                <td>Monas</td>
+                                <td>3,500</td>
+                                <td>Rp 150,000,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Art Exhibition 2024</strong></td>
+                                <td>05 November 2024</td>
+                                <td>National Gallery</td>
+                                <td>1,200</td>
+                                <td>Rp 100,000,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dokumen -->
+        <div id="dokumen" class="page">
+            <div class="dokumen-container">
+                <!-- Panel Kiri: Tab Dokumen & Pencarian -->
+                <div class="dokumen-card dokumen-left-panel">
+                    <div class="dokumen-card-header">
+                        <h2 class="dokumen-card-title">Tab Dokumen & Pencarian</h2>
+                    </div>
+                    <div class="dokumen-tabs">
+                        <button class="dokumen-tab-button">Surat</button>
+                        <button class="dokumen-tab-button">Laporan</button>
+                        <div class="dokumen-context-info">
+                            <strong>Konser Band X</strong><br>
+                            <em>20 Desember 2025</em>
+                        </div>
+                    </div>
+
+                    <div class="dokumen-search-section">
+                        <label for="search-doc">Pencarian Dokumen</label>
+                        <input type="text" id="search-doc" placeholder="Cari Surat Perjanjian Sponsor">
+                    </div>
+
+                    <div class="dokumen-dropdowns">
+                        <label for="select-template">Select Templates</label>
+                        <select id="select-template" disabled>
+                            <option value="">Select Template</option>
+                        </select>
+
+                        <label for="select-sponsor">Select Sponsor</label>
+                        <select id="select-sponsor">
+                            <option value="sponsor1">Sponsor A</option>
+                            <option value="sponsor2">Sponsor B</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Panel Tengah: Formulir Pengisian Data -->
+                <div class="dokumen-card dokumen-center-panel">
+                    <div class="dokumen-card-header">
+                        <h2 class="dokumen-card-title">Formulir Pengisian Data</h2>
+                    </div>
+                    <form class="dokumen-form">
+                        <label for="second-party">Nama Pihak Kedua</label>
+                        <input type="text" id="second-party" placeholder="Aomie Bintons">
+
+                        <label for="event-name">Nama Acara</label>
+                        <input type="text" id="event-name" placeholder="Selanor Mus">
+
+                        <label for="start-date">Tanggal Mulai</label>
+                        <input type="text" id="start-date" placeholder="Desember, 2025">
+
+                        <label for="sponsor-name">Nama Sponsor</label>
+                        <input type="text" id="sponsor-name" placeholder="Sponsor A">
+
+                        <label for="contract-term">Jangka Kontrak</label>
+                        <input type="text" id="contract-term" placeholder="Aktretirenzo K">
+
+                        <label for="contract-subject">Isi/Hal Kontrak</label>
+                        <input type="text" id="contract-subject" placeholder="Agnopa Bortex">
+                    </form>
+                </div>
+
+                <!-- Panel Kanan: Pratinjau Dokumen (moved to bottom) -->
+                <div class="dokumen-card dokumen-right-panel">
+                    <div class="dokumen-card-header">
+                        <h2 class="dokumen-card-title">Pratinjau Dokumen</h2>
+                    </div>
+                    <div class="dokumen-template-info">
+                        <strong>Nama Template:</strong> "Meeting Produksi, 18 Des 2025..."<br>
+                        <div class="dokumen-user-info">
+                            <img src="profile.jpg" alt="User Profile" class="dokumen-profile-img">
+                            <p>John Doe</p>
+                        </div>
+                    </div>
+
+                    <div class="dokumen-preview">
+                        <div class="dokumen-preview-header">
+                            <h3>MONITORING EO KONSER</h3>
+                        </div>
+                        <div class="dokumen-preview-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                        </div>
+                        <div class="dokumen-preview-signature">
+                            <p>Tanda Tangan:</p>
+                        </div>
+                    </div>
+
+                    <div class="dokumen-actions">
+                        <button class="dokumen-btn dokumen-save-btn">Save to Documents</button>
+                        <button class="dokumen-btn dokumen-download-btn">Download to Device</button>
+                    </div>
+
+                    <div class="dokumen-storage-info">
+                        <p>Save Location: /Documents/Konser X/Y/X/</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meeting -->
+        <div id="meeting" class="page">
+            <!-- Card untuk Jadwal Rapat -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Jadwal Rapat</h2>
+                </div>
+                <div class="calendar-view">
+                    <h3>Calendar View</h3>
+                    <!-- Kalender Rapat (Placeholder) -->
+                    <div class="calendar-placeholder">Calendar view component here</div>
+                </div>
+                <div class="list-view">
+                    <h3>List View Rapat</h3>
+                    <!-- Tabel daftar rapat -->
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama Rapat</th>
+                                    <th>Tanggal</th>
+                                    <th>Waktu</th>
+                                    <th>Tempat</th>
+                                    <th>Peserta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Rapat Koordinasi 2024</strong></td>
+                                    <td>15 Desember 2024</td>
+                                    <td>09:00 WIB</td>
+                                    <td>Ruang Rapat A</td>
+                                    <td>10 Orang</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rapat Evaluasi 2024</strong></td>
+                                    <td>20 Januari 2025</td>
+                                    <td>10:00 WIB</td>
+                                    <td>Ruang Rapat B</td>
+                                    <td>15 Orang</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rapat Pengarahan 2025</strong></td>
+                                    <td>25 Februari 2025</td>
+                                    <td>13:00 WIB</td>
+                                    <td>Ruang Rapat C</td>
+                                    <td>20 Orang</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card untuk Formulir Jadwal Rapat -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Buat Rapat</h2>
+                </div>
+                <div class="form-container">
+                    <form>
+                        <label for="meeting-title">Nama Rapat</label>
+                        <input type="text" id="meeting-title" placeholder="Rapat Koordinasi 2024">
+
+                        <label for="meeting-date">Tanggal Rapat</label>
+                        <input type="date" id="meeting-date">
+
+                        <label for="meeting-time">Waktu Rapat</label>
+                        <input type="time" id="meeting-time">
+
+                        <label for="meeting-location">Tempat Rapat</label>
+                        <input type="text" id="meeting-location" placeholder="Ruang Rapat A">
+
+                        <label for="meeting-participants">Peserta Rapat</label>
+                        <input type="text" id="meeting-participants" placeholder="Nama Peserta">
+
+                        <label for="meeting-agenda">Agenda</label>
+                        <textarea id="meeting-agenda" placeholder="Tulis agenda rapat"></textarea>
+
+                        <label for="meeting-leader">Ketua Rapat</label>
+                        <input type="text" id="meeting-leader" placeholder="Nama Ketua Rapat">
+
+                        <label for="meeting-organizer">Ketua Pelaksana</label>
+                        <input type="text" id="meeting-organizer" placeholder="Nama Ketua Pelaksana">
+
+                        <button type="submit" class="btn-create">Buat Rapat</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Card untuk Notulensi Rapat -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Notulensi Rapat</h2>
+                </div>
+                <div class="notulensi-container">
+                    <button class="btn-create-notulensi">Buat Notulensi</button>
+
+                    <div class="history-notulensi">
+                        <h3>History Notulensi</h3>
+                        <ul>
+                            <li><strong>Rapat Koordinasi 2024</strong> - <a href="#">Lihat Notulensi</a></li>
+                            <li><strong>Rapat Evaluasi 2024</strong> - <a href="#">Lihat Notulensi</a></li>
+                            <li><strong>Rapat Pengarahan 2025</strong> - <a href="#">Lihat Notulensi</a></li>
+                        </ul>
+                    </div>
+
+                    <button class="btn-export-notulensi">Export Notulensi</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profil -->
+        <div id="profil" class="page">
+            <div class="profile-container">
+                <!-- Profile Card -->
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar-large">KP</div>
+                        <div class="profile-info">
+                            <h1>Ahmad Rizki</h1>
+                            <p class="profile-role">Ketua Pelaksana</p>
+                            <p class="profile-email">ahmad.rizki@email.com</p>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="profile-btn profile-btn-edit">Edit Profil</button>
+                        <button class="profile-btn profile-btn-password">Ubah Password</button>
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="profile-section">
+                    <h2 class="section-title">Informasi Pribadi</h2>
+                    <div class="profile-grid">
+                        <div class="profile-field">
+                            <label>Nama Lengkap</label>
+                            <p>Ahmad Rizki</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Email</label>
+                            <p>ahmad.rizki@email.com</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Nomor Telepon</label>
+                            <p>+62 812 3456 7890</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Tempat Lahir</label>
+                            <p>Jakarta</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Tanggal Lahir</label>
+                            <p>15 Maret 1997</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Jenis Kelamin</label>
+                            <p>Laki-laki</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Organization Information -->
+                <div class="profile-section">
+                    <h2 class="section-title">Informasi Organisasi</h2>
+                    <div class="profile-grid">
+                        <div class="profile-field">
+                            <label>Posisi</label>
+                            <p>Ketua Pelaksana</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Divisi</label>
+                            <p>Kepemimpinan</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Status</label>
+                            <p><span class="status-badge status-active">Aktif</span></p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Tanggal Bergabung</label>
+                            <p>01 Januari 2024</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Participation -->
+                <div class="profile-section">
+                    <h2 class="section-title">Partisipasi Event</h2>
+                    <div class="event-stats">
+                        <div class="event-stat-box">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Total Event</div>
+                        </div>
+                        <div class="event-stat-box">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Event Aktif</div>
+                        </div>
+                        <div class="event-stat-box">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Event Selesai</div>
+                        </div>
+                        <div class="event-stat-box">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">Event Tertunda</div>
+                        </div>
+                    </div>
+                    <table style="margin-top: 20px; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Peran</th>
+                                <th>Status</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Music Festival 2024</strong></td>
+                                <td>Ketua Pelaksana</td>
+                                <td><span class="badge badge-progress">In Progress</span></td>
+                                <td>15 Desember 2024</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Conference 2024</strong></td>
+                                <td>Ketua Pelaksana</td>
+                                <td><span class="badge badge-progress">In Progress</span></td>
+                                <td>20 Januari 2025</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Charity Run 2025</strong></td>
+                                <td>Ketua Pelaksana</td>
+                                <td><span class="badge badge-pending">Upcoming</span></td>
+                                <td>10 Februari 2025</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Art Exhibition 2024</strong></td>
+                                <td>Ketua Pelaksana</td>
+                                <td><span class="badge badge-completed">Completed</span></td>
+                                <td>05 November 2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Task Summary -->
+                <div class="profile-section">
+                    <h2 class="section-title">Ringkasan Tugas</h2>
+                    <div class="task-summary">
+                        <div class="task-item">
+                            <span class="task-label">Total Tugas</span>
+                            <span class="task-count">45</span>
+                        </div>
+                        <div class="task-item">
+                            <span class="task-label">Tugas Selesai</span>
+                            <span class="task-count completed">38</span>
+                        </div>
+                        <div class="task-item">
+                            <span class="task-label">Tugas In Progress</span>
+                            <span class="task-count inprogress">5</span>
+                        </div>
+                        <div class="task-item">
+                            <span class="task-label">Butuh Revisi</span>
+                            <span class="task-count revision">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings & Preferences -->
+                <div class="profile-section">
+                    <h2 class="section-title">Pengaturan & Preferensi</h2>
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <label>Notifikasi Email</label>
+                            <input type="checkbox" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>Notifikasi Push</label>
+                            <input type="checkbox" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>Tampilkan Profil Publik</label>
+                            <input type="checkbox">
+                        </div>
+                        <div class="setting-item">
+                            <label>Two-Factor Authentication</label>
+                            <input type="checkbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            const pageTitles = {
+                'dashboard': 'Dashboard',
+                'event': 'Event Management',
+                'struktur': 'Struktur Kepanitiaan',
+                'tugas': 'Manajemen Tugas',
+                'data': 'Data Event',
+                'dokumen': 'Dokumen',
+                'meeting': 'Meeting',
+                'profil': 'Profil'
+            };
+            document.getElementById('pageTitle').innerText = pageTitles[pageId];
+        }
+    </script>
+</body>
