@@ -44,7 +44,7 @@ class SponsorController extends Controller
 
         return redirect()
             ->route('event.sponsor.index', $eventId)
-            ->with('success', 'Sponsor added successfully 🎉');
+            ->with('success', 'Sponsor added successfully');
     }
 
     public function update(Request $request, $eventId, $sponsorId)
@@ -62,7 +62,7 @@ class SponsorController extends Controller
 
         return redirect()
             ->route('event.sponsor.index', $eventId)
-            ->with('success', 'Sponsor updated successfully ✨');
+            ->with('success', 'Sponsor updated successfully');
     }
 
     public function destroy($eventId, $sponsorId)
@@ -71,6 +71,6 @@ class SponsorController extends Controller
 
         return redirect()
             ->route('event.sponsor.index', $eventId)
-            ->with('success', 'Sponsor deleted 🗑️');
+            ->with('success', 'Sponsor deleted');
     }
 }

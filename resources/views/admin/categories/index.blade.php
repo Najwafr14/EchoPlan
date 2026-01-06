@@ -1,10 +1,8 @@
 <x-app-layout>
     <h2>Event Categories</h2>
-
     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
         + Add Category
     </a>
-
     <table>
         <thead>
             <tr>

@@ -72,18 +72,7 @@ body {
     background: rgba(255, 255, 255, 0.25);
 }
 
-/* Logout danger */
-.menu-item.logout span {
-    color: #ffd6d6;
-}
 
-.menu-item.logout:hover {
-    background: rgba(255, 0, 0, 0.3);
-}
-
-.menu-item.logout:hover span {
-    color: #fff;
-}
 
 /* ===============================
    MAIN CONTENT

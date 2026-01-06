@@ -16,7 +16,6 @@ class TalentController extends Controller
             ->orderBy('performance_date', 'asc')
             ->get();
 
-        // Summary by type
         $summary = [
             'Solo' => $talents->where('talent_type', 'Solo')->count(),
             'Band' => $talents->where('talent_type', 'Band')->count(),

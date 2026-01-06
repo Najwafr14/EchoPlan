@@ -32,8 +32,8 @@
             <span>Task</span>
         </a>
 
-        <a href="{{ route('tools.index') }}" class="menu-item">
-            <span>Tools</span>
+        <a href="{{ route('document.index') }}" class="menu-item">
+            <span>Document</span>
         </a>
 
         <a href="{{ route('meetings.index') }}" class="menu-item">
@@ -48,7 +48,7 @@
             <span>Dashboard</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a href="{{ route('owner.report.index') }}" class="menu-item">
             <span>Event Report</span>
         </a>
     @endif
@@ -56,13 +56,41 @@
     <a href="{{ route('profile.show') }}" class="menu-item">
         <span>Profile</span>
     </a>
-    <div style="margin-top: 40px;">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="menu-item logout">
-                <span>Logout</span>
-            </button>
-        </form>
-    </div>
+    {{-- Spacer untuk push logout ke bawah --}}
+    <div style="flex-grow: 1;"></div>
+    
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="menu-item logout-btn">
+            <span>Logout</span>
+        </button>
+    </form>
+</div>
+
+<style>
+/* Logout Button - RED */
+.logout-btn {
+    width: 100%;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+    margin: 2px 0;
+    z-index: 10;
+}
+
+.logout-btn:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+.logout-btn span {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+</style>
 
 </div>

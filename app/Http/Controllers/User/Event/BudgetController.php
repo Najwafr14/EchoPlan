@@ -1,84 +1,81 @@
 <?php
+// app/Http/Controllers/User/Event/BudgetController.php
 
 namespace App\Http\Controllers\User\Event;
 
 use App\Http\Controllers\Controller;
 use App\Models\Budget;
-use App\Models\EventDivMember;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BudgetController extends Controller
 {
-    public function index(Event $event)
+    public function index($eventId)
     {
-        $budgets = Budget::where('event_id', $event->event_id)->get();
-
-        // Summary count
+        $event = Event::findOrFail($eventId);
+        $budgets = Budget::where('event_id', $eventId)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        $totalIncome = Budget::where('event_id', $eventId)
+            ->where('transaction_type', 'income')
+            ->sum('amount');
+            
+        $totalExpense = Budget::where('event_id', $eventId)
+            ->where('transaction_type', 'expense')
+            ->sum('amount');
+            
+        $balance = $totalIncome - $totalExpense;
+        
         $summary = [
-            'Pending' => $budgets->where('status', 'Pending')->count(),
-            'Approved' => $budgets->where('status', 'Approved')->count(),
-            'Paid' => $budgets->where('status', 'Paid')->count(),
+            'Income' => $totalIncome,
+            'Expense' => $totalExpense,
+            'Balance' => $balance,
+            'Pending' => Budget::where('event_id', $eventId)->where('status', 'Pending')->count(),
         ];
-
-        // cek apakah user adalah treasurer
-        $isTreasurer = EventDivMember::where('user_id', auth()->id())
-            ->whereHas('division.divisionType', function ($q) {
-                $q->where('type_name', 'Treasurer');
-            })
-            ->exists();
-
-        return view('user.event.budget.index', compact(
-            'event',
-            'budgets',
-            'summary',
-            'isTreasurer'
-        ));
+        
+        return view('user.event.budget.index', compact('event', 'budgets', 'summary', 'eventId'));
     }
 
-    public function store(Request $request, Event $event)
+    public function store(Request $request, $eventId)
     {
-        $request->validate([
-            'budget_type' => 'required|string',
-            'budget_item' => 'required|string',
+        $validated = $request->validate([
+            'transaction_type' => 'required|in:income,expense',
+            'budget_type' => 'required|string|max:255',
+            'budget_item' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
-        ]);
-
-        Budget::create([
-            'event_id' => $event->event_id,
-            'budget_type' => $request->budget_type,
-            'budget_item' => $request->budget_item,
-            'amount' => $request->amount,
-            'status' => 'Pending', // AUTO
-        ]);
-
-        return back()->with('success', 'Budget added 💸');
-    }
-
-    public function update(Request $request, Event $event, Budget $budget)
-    {
-        // SECURITY GATE 🔐
-        if (!$this->isTreasurer()) {
-            abort(403);
-        }
-
-        $request->validate([
+            'payment_method' => 'nullable|string|max:100',
+            'payment_date' => 'nullable|date',
             'status' => 'required|in:Pending,Approved,Paid',
+            'notes' => 'nullable|string',
         ]);
 
-        $budget->update([
-            'status' => $request->status,
-        ]);
+        $validated['event_id'] = $eventId;
+        $validated['created_by'] = Auth::id();
 
-        return back()->with('success', 'Budget updated ✅');
+        Budget::create($validated);
+
+        return redirect()->route('user.event.budget.index', $eventId)
+            ->with('success', 'Budget item added successfully!');
     }
 
-    private function isTreasurer()
+    public function update(Request $request, $eventId, $budgetId)
     {
-        return EventDivMember::where('user_id', auth()->id())
-            ->whereHas('division.divisionType', function ($q) {
-                $q->where('type_name', 'Treasurer');
-            })
-            ->exists();
+        $budget = Budget::findOrFail($budgetId);
+
+        $validated = $request->validate([
+            'status' => 'required|in:Pending,Approved,Paid',
+            'payment_method' => 'nullable|string|max:100',
+            'payment_date' => 'nullable|date',
+            'notes' => 'nullable|string',
+        ]);
+
+        $validated['approved_by'] = Auth::id();
+
+        $budget->update($validated);
+
+        return redirect()->route('user.event.budget.index', $eventId)
+            ->with('success', 'Budget updated successfully!');
     }
 }

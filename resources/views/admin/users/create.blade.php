@@ -4,10 +4,7 @@
         
         <form method="POST" action="{{ route('admin.users.store') }}" class="add-user-form">
             @csrf
-            
-            <!-- General Information Section -->
             <h3 class="section-title">General Information</h3>
-            
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Username</label>
@@ -18,7 +15,6 @@
                     <input name="full_name" class="form-input" required>
                 </div>
             </div>
-
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Email</label>
@@ -48,7 +44,6 @@
                 </div>
             </div>
 
-            <!-- Personal Information Section -->
             <h3 class="section-title">Personal Information</h3>
             
             <div class="form-row">
@@ -72,7 +67,6 @@
                     <input name="domicile" class="form-input">
                 </div>
                 <div class="form-group">
-                    <!-- Empty space for alignment -->
                 </div>
             </div>
 
@@ -82,11 +76,9 @@
                     <input name="born_date" type="date" class="form-input">
                 </div>
                 <div class="form-group">
-                    <!-- Empty space for alignment -->
                 </div>
             </div>
 
-            <!-- Submit Button -->
             <div>
                 <button type="submit" class="btn-submit">Add User</button>
             </div>

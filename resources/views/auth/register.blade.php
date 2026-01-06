@@ -119,7 +119,7 @@
 
         <!-- Footer -->
         <p class="text-center text-gray-700 text-sm mt-6">
-            &copy; 2024 Echo Plan — Concert Event Organizer Management System
+            &copy; 2025 Echo Plan — Concert Event Organizer Management System
         </p>
     </div>
 </x-guest-layout>

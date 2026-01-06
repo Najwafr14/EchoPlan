@@ -38,7 +38,7 @@ class VendorController extends Controller
 
         return redirect()
             ->route('event.vendor.index', $eventId)
-            ->with('success', 'Vendor added successfully 🎉');
+            ->with('success', 'Vendor added successfully');
     }
 
     public function update(Request $request, $eventId, $vendorId)
@@ -56,7 +56,7 @@ class VendorController extends Controller
 
         return redirect()
             ->route('event.vendor.index', $eventId)
-            ->with('success', 'Vendor updated successfully ✨');
+            ->with('success', 'Vendor updated successfully');
     }
 
     public function destroy($eventId, $vendorId)
@@ -65,6 +65,6 @@ class VendorController extends Controller
 
         return redirect()
             ->route('event.vendor.index', $eventId)
-            ->with('success', 'Vendor deleted 🗑️');
+            ->with('success', 'Vendor deleted');
     }
 }

@@ -1,10 +1,11 @@
 <x-app-layout>
-    <div class="header"><h2>User Management</h2></div>
-
-    <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
-        + Add New User
-    </a>
-
+    <div class="header">
+        <h2>User Management</h2>
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+            + Add New User
+        </a>
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -15,7 +16,6 @@
                 <th>Action</th>
             </tr>
         </thead>
-
         <tbody>
             @foreach($users as $user)
                 <tr>
@@ -29,7 +29,6 @@
                     </td>
                     <td>
                         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning btn-small">Edit</a>
-
                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')

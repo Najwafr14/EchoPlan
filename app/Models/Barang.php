@@ -27,13 +27,11 @@ class Barang extends Model
         'quantity' => 'integer',
     ];
 
-    // Relasi Many-to-One ke Events
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id', 'event_id');
     }
 
-    // Relasi Many-to-One ke Vendor
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id', 'vendor_id');

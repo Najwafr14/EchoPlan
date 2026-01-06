@@ -47,7 +47,7 @@ class BarangController extends Controller
 
         return redirect()
             ->route('event.barang.index', $eventId)
-            ->with('success', 'Item added successfully 📦');
+            ->with('success', 'Item added successfully');
     }
 
     public function update(Request $request, $eventId, $itemId)
@@ -67,7 +67,7 @@ class BarangController extends Controller
 
         return redirect()
             ->route('event.barang.index', $eventId)
-            ->with('success', 'Item updated successfully ✨');
+            ->with('success', 'Item updated successfully');
     }
 
     public function destroy($eventId, $itemId)
@@ -76,6 +76,6 @@ class BarangController extends Controller
 
         return redirect()
             ->route('event.barang.index', $eventId)
-            ->with('success', 'Item deleted 🗑️');
+            ->with('success', 'Item deleted');
     }
 }

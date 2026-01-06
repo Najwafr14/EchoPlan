@@ -17,8 +17,11 @@ use App\Http\Controllers\User\Event\VendorController;
 use App\Http\Controllers\User\Event\SponsorController;
 use App\Http\Controllers\User\Event\BarangController;
 use App\Http\Controllers\User\TaskController;
+use App\Http\Controllers\User\DocumentController;
 use App\Http\Controllers\User\ToolsController;
 use App\Http\Controllers\User\MeetingController;
+use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
+use App\Http\Controllers\Owner\EventReportController as ReportController;
 
 
 Route::get('/', function () {
@@ -77,7 +80,12 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/event/{event}/timeline', [TimelineController::class, 'index'])
      ->name('event.timeline.index');
 
-    Route::resource('/task', TaskController::class);
+    Route::get('/task', [TaskController::class, 'index'])
+        ->name('task.index');
+    Route::get('/task/{task}', [TaskController::class, 'show'])
+        ->name('task.show');
+    Route::post('/task/{task}/progress', [TaskController::class, 'storeProgress'])
+        ->name('task.progress.store');
     
     Route::get('/event/{event}/task', [EventTaskController::class, 'index'])
         ->name('user.event.task.index');
@@ -142,6 +150,15 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/tools', [ToolsController::class, 'index'])
         ->name('tools.index');
 
+    Route::get('/document', [DocumentController::class, 'index'])
+        ->name('document.index');
+    Route::post('/document', [DocumentController::class, 'store'])
+        ->name('document.store');
+    Route::get('/document/{document}/download', [DocumentController::class, 'download'])
+        ->name('document.download');
+    Route::delete('/document/{document}', [DocumentController::class, 'destroy'])
+        ->name('document.destroy');
+
     Route::get('/meetings', [MeetingController::class, 'index'])
         ->name('meetings.index');
     Route::post('/meetings', [MeetingController::class, 'store'])
@@ -156,8 +173,10 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
 
 
 
-Route::prefix('owner')->middleware('auth')->group(function () {
-    Route::get('/dashboard', fn () => view('owner.dashboard'))->name('owner.dashboard');
+Route::middleware(['auth', 'role:Owner'])->prefix('owner')->name('owner.')->group(function () {
+    Route::get('/dashboard', [OwnerDashboardController::class, 'index'])
+        ->name('dashboard');
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
 });
 
 require __DIR__.'/auth.php';

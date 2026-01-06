@@ -6,8 +6,14 @@
     </div>
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
-            <!-- Flash Messages -->
+            <div class="flex items-center gap-3">
+                <a href="{{ route('event.show', $event -> event_id) }}" class="text-blue-600 hover:text-blue-800 flex items-center">
+                    <i class="fa-solid fa-chevron-left text-2xl"></i>
+                </a>
+                <h1 class="text-3xl font-bold">
+                    Talent {{ $event->event_name }}
+                </h1>
+            </div>
             @if(session('success'))
             <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
                 {{ session('success') }}
@@ -20,8 +26,7 @@
             </div>
             @endif
 
-            <!-- Summary Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="grid grid-cols-1 mt-4 md:grid-cols-3 gap-4 mb-6">
                 <div class="bg-purple-100 p-6 rounded-lg shadow">
                     <p class="text-sm text-purple-700 font-medium">Solo</p>
                     <h2 class="text-3xl font-bold text-purple-900">{{ $summary['Solo'] }}</h2>
@@ -36,10 +41,9 @@
                 </div>
             </div>
 
-            <!-- Talent Table -->
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="flex justify-between items-center p-6 border-b">
-                    <h2 class="text-xl font-bold text-gray-800">Talent List - {{ $event->event_name }}</h2>
+                    <h2 class="text-xl font-bold text-gray-800"></h2>
                     <button data-modal="addTalentModal" class="btn btn-primary">
                         + Add Talent
                     </button>
@@ -49,21 +53,21 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Talent Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fee</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Performance Date</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contact</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                                <th>Talent Name</th>
+                                <th>Type</th>
+                                <th>Fee</th>
+                                <th>Performance Date</th>
+                                <th>Contact</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($talents as $talent)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="text-sm font-medium text-gray-900">{{ $talent->talent_name }}</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
                                         {{ $talent->talent_type == 'Solo' ? 'bg-purple-100 text-purple-800' : '' }}
                                         {{ $talent->talent_type == 'Band' ? 'bg-blue-100 text-blue-800' : '' }}
@@ -71,16 +75,16 @@
                                         {{ $talent->talent_type }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="text-sm font-semibold text-gray-900">Rp {{ number_format($talent->talent_fee, 0, ',', '.') }}</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($talent->performance_date)->format('d M Y, H:i') }}</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="text-sm text-gray-600">{{ $talent->contact_info }}</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <td>
                                     <button data-modal="viewTalent{{ $talent->talent_id }}" class="text-blue-600 hover:text-blue-900 font-medium">
                                         View
                                     </button>
@@ -101,7 +105,6 @@
         </div>
     </div>
 
-    <!-- Add Talent Modal -->
     <div id="addTalentModal" class="modal hidden">
         <div class="modal-box">
             <h3 class="font-bold text-lg mb-4">Add New Talent</h3>
@@ -109,11 +112,11 @@
                 @csrf
                 <div class="form-group">
                     <label>Talent Name</label>
-                    <input type="text" name="talent_name" placeholder="Enter talent name" required>
+                    <input type="text" name="talent_name" placeholder="Enter talent name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                 </div>
                 <div class="form-group">
                     <label>Type</label>
-                    <select name="talent_type" required>
+                    <select name="talent_type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                         <option value="">-- Select Type --</option>
                         <option value="Solo">Solo</option>
                         <option value="Band">Band</option>
@@ -122,15 +125,15 @@
                 </div>
                 <div class="form-group">
                     <label>Fee (Rp)</label>
-                    <input type="number" name="talent_fee" placeholder="0" min="0">
+                    <input type="number" name="talent_fee" placeholder="0" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="form-group">
                     <label>Performance Date & Time</label>
-                    <input type="datetime-local" name="performance_date">
+                    <input type="datetime-local" name="performance_date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="form-group">
                     <label>Contact Info</label>
-                    <input type="text" name="contact_info" placeholder="Phone or email">
+                    <input type="text" name="contact_info" placeholder="Phone or email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -140,7 +143,6 @@
         </div>
     </div>
 
-    <!-- View/Edit Talent Modals -->
     @foreach($talents as $talent)
     <div id="viewTalent{{ $talent->talent_id }}" class="modal hidden">
         <div class="modal-box">
@@ -183,7 +185,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div id="editTalent{{ $talent->talent_id }}" class="modal hidden">
         <div class="modal-box">
             <h3 class="font-bold text-lg mb-4">Edit Talent</h3>
@@ -224,7 +225,6 @@
     @endforeach
 
     <script>
-        // Open modal
         document.querySelectorAll('[data-modal]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const modalId = btn.getAttribute('data-modal');
@@ -232,7 +232,6 @@
             });
         });
 
-        // Close modal
         document.querySelectorAll('.close-modal').forEach(btn => {
             btn.addEventListener('click', () => {
                 const modal = btn.closest('.modal');
@@ -240,7 +239,6 @@
             });
         });
 
-        // Close modal when clicking outside
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', function(e) {
                 if (e.target === this) {

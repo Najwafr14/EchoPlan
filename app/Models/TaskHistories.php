@@ -13,9 +13,6 @@ class TaskHistories extends Model
     protected $table = 'taskhistories';
     protected $primaryKey = 'history_id';
 
-    public $incrementing = true;
-    protected $keyType = 'int';
-
     protected $fillable = [
         'task_id',
         'old_status',

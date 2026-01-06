@@ -46,13 +46,13 @@ class VenueController extends Controller
 
         return redirect()
             ->route('event.venue.index', $eventId)
-            ->with('success', 'Venue added successfully 🏟️');
+            ->with('success', 'Venue added successfully');
     }
 
     public function update(Request $request, $eventId, $venueId)
     {
         $venue = Venue::findOrFail($venueId);
-
+        
         $validated = $request->validate([
             'venue_name' => 'required|string|max:255',
             'venue_address' => 'required|string',
@@ -62,17 +62,19 @@ class VenueController extends Controller
             'is_primary' => 'nullable|boolean',
         ]);
 
-        $validated['is_primary'] = $request->has('is_primary');
+        $validated['is_primary'] = $request->has('is_primary') ? true : false;
 
         if ($validated['is_primary']) {
-            Venue::where('event_id', $eventId)->update(['is_primary' => false]);
+            Venue::where('event_id', $eventId)
+                ->where('venue_id', '!=', $venueId)
+                ->update(['is_primary' => false]);
         }
 
         $venue->update($validated);
 
         return redirect()
             ->route('event.venue.index', $eventId)
-            ->with('success', 'Venue updated successfully ✨');
+            ->with('success', 'Venue updated successfully');
     }
 
     public function destroy($eventId, $venueId)
@@ -81,6 +83,6 @@ class VenueController extends Controller
 
         return redirect()
             ->route('event.venue.index', $eventId)
-            ->with('success', 'Venue deleted 🗑️');
+            ->with('success', 'Venue deleted');
     }
 }

@@ -5,20 +5,22 @@ namespace App\Http\Controllers\User\Event;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventCategories;
+use App\Models\Budget;
 use App\Models\Division;
 use App\Models\DivisionType;
 use App\Models\EventDivMember;
 use App\Models\Tasks;
 use App\Models\Meetings;
+use App\Models\Venue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::whereHas('members', function ($q) {
+        $query = Event::whereHas('members', function ($q) {
                 $q->where('user_id', Auth::id());
             })
             ->withCount([
@@ -26,10 +28,34 @@ class EventController extends Controller
                 'tasks as completed_tasks' => function ($q) {
                     $q->where('status', 'Completed');
                 }
-            ])
-            ->latest()
-            ->get();
-
+            ]);
+        
+        if ($request->filled('search')) {
+            $query->where('event_name', 'like', '%' . $request->search . '%');
+        }
+        
+        $sortBy = $request->get('sort', 'latest');
+        switch ($sortBy) {
+            case 'name_asc':
+                $query->orderBy('event_name', 'asc');
+                break;
+            case 'name_desc':
+                $query->orderBy('event_name', 'desc');
+                break;
+            case 'date_asc':
+                $query->orderBy('event_date', 'asc');
+                break;
+            case 'date_desc':
+                $query->orderBy('event_date', 'desc');
+                break;
+            case 'latest':
+            default:
+                $query->latest();
+                break;
+        }
+        
+        $events = $query->get();
+        
         return view('user.event.index', compact('events'));
     }
 
@@ -99,8 +125,21 @@ class EventController extends Controller
             : 0;
 
         $nextMeeting = Meetings::where('event_id', $event->event_id)
+            ->where('meeting_date', '>=', now())
             ->orderBy('meeting_date', 'asc')
             ->first();
+
+        $totalIncome = Budget::where('event_id', $event->event_id)
+            ->where('transaction_type', 'income')
+            ->sum('amount');
+            
+        $totalExpense = Budget::where('event_id', $event->event_id)
+            ->where('transaction_type', 'expense')
+            ->sum('amount');
+
+        $primaryVenue = Venue::where('event_id', $event->event_id)
+        ->where('is_primary', true)
+        ->first();
 
         return view('user.event.show', compact(
             'event',
@@ -109,7 +148,10 @@ class EventController extends Controller
             'revisionTasks',
             'needAttentionTasks',
             'progressPercent',
-            'nextMeeting'
+            'nextMeeting',
+            'totalIncome',
+            'totalExpense',
+            'primaryVenue'
         ));
     }
 }

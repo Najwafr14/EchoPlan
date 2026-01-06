@@ -24,7 +24,6 @@ class Sponsor extends Model
         'contribution_amount' => 'decimal:2',
     ];
 
-    // Relasi Many-to-One ke Events
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id', 'event_id');

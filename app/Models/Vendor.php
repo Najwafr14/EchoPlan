@@ -24,13 +24,11 @@ class Vendor extends Model
         'cost' => 'decimal:2',
     ];
 
-    // Relasi Many-to-One ke Events
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id', 'event_id');
     }
 
-    // Relasi One-to-Many ke Barang
     public function barangs()
     {
         return $this->hasMany(Barang::class, 'vendor_id', 'vendor_id');

@@ -58,4 +58,40 @@ class Event extends Model
         return $this->hasMany(Talent::class, 'event_id', 'event_id');
     }
 
+    public function venue()
+    {
+        return $this->belongsTo(Venue::class, 'event_venue', 'venue_id');
+    }
+    public function primaryVenue()
+    {
+        return $this->hasOne(Venue::class, 'event_id', 'event_id')
+            ->where('is_primary', true);
+    }
+
+    public function sponsors()
+    {
+        return $this->hasMany(Sponsor::class, 'event_id', 'event_id');
+    }
+
+    public function vendors()
+    {
+        return $this->hasMany(Vendor::class, 'event_id', 'event_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Barang::class, 'event_id', 'event_id');
+    }
+
+    public function meetings()
+    {
+        return $this->hasMany(Meetings::class, 'event_id', 'event_id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Documents::class, 'event_id', 'event_id');
+    }
+
+
 }

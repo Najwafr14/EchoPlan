@@ -6,6 +6,9 @@
     </div>
     <div class="card">
         <div class="card-header flex justify-between items-center">
+            <a href="{{ route('event.show', $event->event_id) }}" class="text-blue-600 hover:text-blue-800 flex items-center">
+                <i class="fa-solid fa-chevron-left text-2xl"></i>
+            </a>
             <h2 class="text-xl font-bold">
                 Committee Structure - {{ $event->event_name }}
             </h2>
@@ -43,8 +46,6 @@
         </div>
 
     </div>
-
-    {{-- MODAL - Only render if user is Chief --}}
     @if($isChief)
     <div id="addMemberModal" class="modal hidden">
         <div class="modal-box">
@@ -53,7 +54,7 @@
                 @csrf
                 <div class="form-group">
                     <label>Division</label>
-                    <select name="division_type_id" required>
+                    <select name="division_type_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                         @foreach ($divisionTypes as $type)
                         <option value="{{ $type->division_type_id }}">
                             {{ $type->type_name }}
@@ -63,14 +64,14 @@
                 </div>
                 <div class="form-group">
                     <label>Position</label>
-                    <select name="role_in_division" required>
+                    <select name="role_in_division" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                         <option value="Leader">Leader</option>
                         <option value="Member">Member</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Member</label>
-                    <select name="user_id" required>
+                    <select name="user_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                         @foreach ($users as $user)
                         <option value="{{ $user->user_id }}">
                             {{ $user->full_name }}

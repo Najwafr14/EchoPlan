@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Tasks;
 use App\Models\Event;
 use App\Models\Division;
+use App\Models\DivisionType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\EventDivMember;
@@ -13,22 +14,39 @@ use App\Models\TaskHistories;
 
 class TaskController extends Controller
 {
-    // Ini untuk per EVENT (/user/event/{event}/task)
-    public function index($eventId)
+    public function index(Request $request, $eventId)
     {
-        // Filter tasks by event
-        $tasks = Tasks::where('event_id', $eventId)
-            ->with(['assignee', 'division', 'event'])
-            ->orderBy('deadline')
-            ->get();
+        $query = Tasks::where('event_id', $eventId)
+            ->with(['assignee', 'division', 'event']);
+        
+        if ($request->filled('search')) {
+            $query->where('task_name', 'like', '%' . $request->search . '%');
+        }
+        
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        
+        $sortBy = $request->get('sort', 'deadline_asc');
+        switch ($sortBy) {
+            case 'deadline_desc':
+                $query->orderBy('deadline', 'desc');
+                break;
+            case 'deadline_asc':
+            default:
+                $query->orderBy('deadline', 'asc');
+                break;
+        }
+        
+        $tasks = $query->get();
         
         $event = Event::findOrFail($eventId);
         $events = Event::all();
         
-        // Filter divisions by event
-        $divisions = Division::where('event_id', $eventId)->get();
+        $divisions = Division::with('divisionType')
+            ->where('event_id', $eventId)
+            ->get();
         
-        // Filter users by divisions in this event
         $divisionIds = $divisions->pluck('division_id');
         $usersByDivision = EventDivMember::with('user')
             ->whereIn('division_id', $divisionIds)
@@ -40,12 +58,13 @@ class TaskController extends Controller
                 })->filter();
             });
         
-        return view('user.event.task.index', compact('tasks', 'event', 'events', 'divisions', 'usersByDivision', 'eventId'));
+        $allStatuses = ['Assigned', 'Revision', 'Blocked', 'Submitted', 'UnderReview_Div', 'UnderReview_CC', 'Completed'];
+        
+        return view('user.event.task.index', compact('tasks', 'event', 'events', 'divisions', 'usersByDivision', 'eventId', 'allStatuses'));
     }
-
+    
     public function store(Request $request, $eventId)
     {
-        
         $validated = $request->validate([
             'event_id' => 'required|exists:events,event_id',
             'division_id' => 'required|exists:divisions,division_id',
@@ -56,12 +75,12 @@ class TaskController extends Controller
             'deadline' => 'required|date',
             'phase' => 'required|in:pre event,preparation,d day,post event',
         ]);
-
+        
         Tasks::create($validated);
         
         return redirect()->route('user.event.task.index', $eventId)->with('success', 'Task added successfully!');
     }
-
+    
     public function show(Tasks $task)
     {
         $task->load([
@@ -70,10 +89,12 @@ class TaskController extends Controller
             'assignee',
             'histories.user'
         ]);
-
-        return view('user.event.task.show', compact('task'));
+        
+        $event = $task->event;
+        
+        return view('user.event.task.show', compact('task', 'event'));
     }
-
+    
     public function storeProgress(Request $request, Tasks $task)
     {
         $validated = $request->validate([
@@ -81,12 +102,12 @@ class TaskController extends Controller
             'note' => 'nullable|string',
             'document' => 'nullable|file|max:5120'
         ]);
-
+        
         $path = null;
         if ($request->hasFile('document')) {
             $path = $request->file('document')->store('task-documents', 'public');
         }
-
+        
         TaskHistories::create([
             'task_id' => $task->task_id,
             'old_status' => $task->status,
@@ -95,11 +116,9 @@ class TaskController extends Controller
             'changed_by' => Auth::id(),
             'document_path' => $path,
         ]);
-
-        // update task status
+        
         $task->update(['status' => $validated['new_status']]);
-
-        return back()->with('success', 'Progress updated 🚀');
+        
+        return back()->with('success', 'Progress updated');
     }
-
 }

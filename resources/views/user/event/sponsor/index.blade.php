@@ -6,10 +6,18 @@
     </div>
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3">
+                <a href="{{ route('event.show', $event -> event_id) }}" class="text-blue-600 hover:text-blue-800 flex items-center">
+                    <i class="fa-solid fa-chevron-left text-2xl"></i>
+                </a>
+                <h1 class="text-3xl font-bold">
+                    Sponsor {{ $event->event_name }}
+                </h1>
+            </div>
             <!-- Sponsor Table -->
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="flex justify-between items-center p-6 border-b">
-                    <h2 class="text-xl font-bold text-gray-800">Sponsor List</h2>
+                    <h2 class="text-xl font-bold text-gray-800"></h2>
                     <button
                         data-modal="addSponsorModal"
                         class="btn btn-primary">
@@ -20,41 +28,41 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sponsor Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contribution</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th>Sponsor Name</th>
+                                <th>Type</th>
+                                <th>Contribution</th>
+                                <th>Contact</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($sponsors as $sponsor)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="text-sm font-medium text-gray-900">{{ $sponsor->sponsor_name }}</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     @if($sponsor->sponsor_type == 'Utama')
                                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
-                                        Utama
+                                        Main
                                     </span>
                                     @elseif($sponsor->sponsor_type == 'Pendukung')
                                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                        Pendukung
+                                        Supporter
                                     </span>
                                     @else
                                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-600">
-                                        Lainnya
+                                        Others
                                     </span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="text-sm font-semibold text-gray-900">Rp {{ number_format($sponsor->contribution_amount ?? 0, 0, ',', '.') }}</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td>
                                     <span class="text-sm text-gray-900">{{ $sponsor->contact_info ?? '-' }}</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <td class="text-sm">
                                     <button
                                         data-modal="editSponsor{{ $sponsor->sponsor_id }}"
                                         class="text-blue-600 hover:text-blue-900 font-medium mr-3">
@@ -81,7 +89,6 @@
         </div>
     </div>
 
-    <!-- Add Sponsor Modal -->
     <div id="addSponsorModal" class="modal hidden">
         <div class="modal-box">
             <h3 class="font-bold text-lg mb-4">Add New Sponsor</h3>
@@ -89,11 +96,11 @@
                 @csrf
                 <div class="form-group">
                     <label>Sponsor Name</label>
-                    <input type="text" name="sponsor_name" placeholder="Enter sponsor name" required>
+                    <input type="text" name="sponsor_name" placeholder="Enter sponsor name" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                 </div>
                 <div class="form-group">
                     <label>Sponsor Type</label>
-                    <select name="sponsor_type" required>
+                    <select name="sponsor_type" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                         <option value="">-- Select Type --</option>
                         <option value="Utama">Utama</option>
                         <option value="Pendukung">Pendukung</option>
@@ -102,11 +109,11 @@
                 </div>
                 <div class="form-group">
                     <label>Contribution Amount (Rp)</label>
-                    <input type="number" name="contribution_amount" placeholder="0" min="0" step="0.01">
+                    <input type="number" name="contribution_amount" placeholder="0" min="0" step="0.01" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="form-group">
                     <label>Contact Info</label>
-                    <input type="text" name="contact_info" placeholder="Phone number or email">
+                    <input type="text" name="contact_info" placeholder="Phone number or email" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -116,7 +123,6 @@
         </div>
     </div>
 
-    <!-- Edit Sponsor Modals (One for each sponsor) -->
     @foreach($sponsors as $sponsor)
     <div id="editSponsor{{ $sponsor->sponsor_id }}" class="modal hidden">
         <div class="modal-box">
@@ -126,11 +132,11 @@
                 @method('PUT')
                 <div class="form-group">
                     <label>Sponsor Name</label>
-                    <input type="text" name="sponsor_name" value="{{ $sponsor->sponsor_name }}" placeholder="Enter sponsor name" required>
+                    <input type="text" name="sponsor_name" value="{{ $sponsor->sponsor_name }}" placeholder="Enter sponsor name" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                 </div>
                 <div class="form-group">
                     <label>Sponsor Type</label>
-                    <select name="sponsor_type" required>
+                    <select name="sponsor_type" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                         <option value="">-- Select Type --</option>
                         <option value="Utama" {{ $sponsor->sponsor_type == 'Utama' ? 'selected' : '' }}>Utama</option>
                         <option value="Pendukung" {{ $sponsor->sponsor_type == 'Pendukung' ? 'selected' : '' }}>Pendukung</option>
@@ -139,11 +145,11 @@
                 </div>
                 <div class="form-group">
                     <label>Contribution Amount (Rp)</label>
-                    <input type="number" name="contribution_amount" value="{{ $sponsor->contribution_amount }}" placeholder="0" min="0" step="0.01">
+                    <input type="number" name="contribution_amount" value="{{ $sponsor->contribution_amount }}" placeholder="0" min="0" step="0.01" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="form-group">
                     <label>Contact Info</label>
-                    <input type="text" name="contact_info" value="{{ $sponsor->contact_info }}" placeholder="Phone number or email">
+                    <input type="text" name="contact_info" value="{{ $sponsor->contact_info }}" placeholder="Phone number or email" class="mr-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
                     <button type="submit" class="btn btn-primary">Update</button>
@@ -154,12 +160,10 @@
     </div>
     @endforeach
 
-    <!-- View Sponsor Modals (One for each sponsor) -->
     @foreach($sponsors as $sponsor)
     <div id="viewSponsor{{ $sponsor->sponsor_id }}" class="modal hidden">
         <div class="modal-box">
             <h3 class="font-bold text-lg mb-4">Sponsor Details</h3>
-            <!-- Sponsor Info -->
             <div class="mb-4 p-4 bg-gray-50 rounded">
                 <div class="mb-2">
                     <span class="text-sm font-medium text-gray-600">Sponsor Name:</span>
@@ -202,24 +206,20 @@
     @endforeach
 
     <script>
-        // Open modal
         document.querySelectorAll('[data-modal]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const modalId = btn.getAttribute('data-modal');
                 document.getElementById(modalId).classList.remove('hidden');
             });
         });
-        // Close modal
         document.querySelectorAll('.close-modal').forEach(btn => {
             btn.addEventListener('click', () => {
                 const modal = btn.closest('.modal');
                 modal.classList.add('hidden');
-                // Reset form if exists
                 const form = modal.querySelector('form');
                 if (form) form.reset();
             });
         });
-        // Close modal when clicking outside
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', function(e) {
                 if (e.target === this) {

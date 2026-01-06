@@ -67,6 +67,6 @@ class CommitteeController extends Controller
             'role_in_division' => $request->role_in_division,
         ]);
 
-        return back()->with('success', 'Member added 🔥');
+        return back()->with('success', 'Member added');
     }
 }
